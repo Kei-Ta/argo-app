@@ -1,0 +1,70 @@
+# wekan UI
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wekan-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wekan
+  template:
+    metadata:
+      labels:
+        app: wekan
+    spec:
+      containers:
+      - name: wekan
+        image: quay.io/wekan/wekan:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongo-service:27017/wekan
+        - name: ROOT_URL
+          value: http://localhost:8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wekan-service
+spec:
+  selector:
+    app: wekan
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
+---
+# mongo-db
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:4.2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  selector:
+    app: mongo
+  ports:
+  - protocol: TCP
+    port: 27017
+    targetPort: 27017
+  type: ClusterIP
