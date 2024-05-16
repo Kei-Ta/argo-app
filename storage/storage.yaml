@@ -8,7 +8,7 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mongo-pv
+  name: mongo-dog-pv
 spec:
   capacity:
     storage: 1Gi
@@ -26,4 +26,27 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - ubuntu-lion
+                - ubuntu-dog
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-cat-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/mongo
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - ubuntu-cat
