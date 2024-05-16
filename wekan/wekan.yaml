@@ -55,6 +55,13 @@ spec:
       containers:
       - name: mongo
         image: mongo:4.2
+        volumeMounts:
+          - name: storage
+            mountPath: /data/db
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -68,3 +75,16 @@ spec:
     port: 27017
     targetPort: 27017
   type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
