@@ -57,7 +57,7 @@ metadata:
   name: mysql-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
-
+---
 kind: PersistentVolume
 apiVersion: v1
 metadata:
