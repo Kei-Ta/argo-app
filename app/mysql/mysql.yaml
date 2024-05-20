@@ -16,11 +16,11 @@ spec:
       - name: mysql
         image: mysql:8.0.37-debian
         volumeMounts:
-          - name: storage
+          - name: mysql-storage
             mountPath: /var/lib/mysql
       nodeName: ubuntu-cat
       volumes:
-        - name: storage
+        - name: mysql-storage
           persistentVolumeClaim:
             claimName: mysql-pvc
 ---
