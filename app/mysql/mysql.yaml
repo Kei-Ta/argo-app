@@ -1,41 +1,47 @@
-apiVersion: apps/v1
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
   name: mysql-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: mysql
     spec:
       containers:
-      - name: mysql
-        image: mysql:8.0.37-debian
+      - image: mysql:8.0
+        name: mysql
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+          name: mysql
         volumeMounts:
-          - name: mysql-storage
-            mountPath: /var/lib/mysql
-      nodeName: ubuntu-cat
+        - name: storage
+          mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql-service
-spec:
-  selector:
-    app: mysql
-  ports:
-  - protocol: TCP
-    port: 3306
-    targetPort: 3306
-  type: ClusterIP
+      - name: storage
+        persistentVolumeClaim:
+          claimName: mysql-cat-pv
+      nodeName: ubuntu-cat
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
