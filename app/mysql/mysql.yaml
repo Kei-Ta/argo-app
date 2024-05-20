@@ -40,7 +40,7 @@ spec:
       volumes:
       - name: storage
         persistentVolumeClaim:
-          claimName: mysql-cat-pv
+          claimName: mysql-pvc
       nodeName: ubuntu-cat
 ---
 apiVersion: v1
