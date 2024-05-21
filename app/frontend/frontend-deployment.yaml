@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastify-pod
+  labels:
+    app: fastify
+spec:
+  containers:
+    - name: fastify-container
+      image: keitakamizu/my-fastify-app:latest
