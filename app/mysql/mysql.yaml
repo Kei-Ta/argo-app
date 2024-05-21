@@ -9,6 +9,7 @@ spec:
   - protocol: TCP
     port: 3306
     targetPort: 3306
+    nodePort: 31411
   type: NodePort
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -43,7 +44,6 @@ spec:
       - name: storage
         persistentVolumeClaim:
           claimName: mysql-pvc
-      # nodeName: ubuntu-cat
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
