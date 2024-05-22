@@ -1,0 +1,23 @@
+name: Kubernetes Lint
+
+on: [push, pull_request]
+
+jobs:
+  kubeval:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up kubeval
+      run: |
+        wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+        tar xf kubeval-linux-amd64.tar.gz
+        sudo mv kubeval /usr/local/bin
+
+    - name: Validate Kubernetes YAML files
+      run: |
+        for file in $(find . -name "*.yaml"); do
+          kubeval $file
+        done
