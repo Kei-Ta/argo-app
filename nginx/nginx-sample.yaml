@@ -25,5 +25,3 @@
 #           persistentVolumeClaim:
 #             claimName: mysql-pvc
 #       nodeName: ubuntu-cat
-
-aacmdamclcma
