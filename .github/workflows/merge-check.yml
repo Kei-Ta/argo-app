@@ -1,0 +1,25 @@
+name: Check Merge with Main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 0
+
+    - name: Fetch main branch
+      run: |
+        git fetch origin main:main
+
+    - name: Check if main branch is merged
+      run: |
+        git merge-base --is-ancestor origin/main ${{ github.event.pull_request.head.ref }} || (echo "Please merge the latest main branch into your branch." && exit 1)
