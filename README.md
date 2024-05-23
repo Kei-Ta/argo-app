@@ -18,7 +18,9 @@ I impremented CI by GitHub Actions. I check yaml file structure and freshness of
 ## Application on k8s cluster
 - [Wekan](https://wekan.github.io/)
 
-    This is kanban management tool.
+    This is kanban management tool. I manage to do k8s cluster.
+    ![structure](./images/wekan.png)
+
 
 - [k8s dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
     
@@ -27,6 +29,7 @@ I impremented CI by GitHub Actions. I check yaml file structure and freshness of
 - [ArgoCD](https://argo-cd.readthedocs.io/en/stable/)
 
     This is GitOps tool.
+    ![structure](./images/argocd.png)
 
 - room monitor app
 
