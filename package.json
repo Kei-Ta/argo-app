@@ -1,0 +1,16 @@
+{
+  "name": "argo-app",
+  "version": "1.0.0",
+  "description": "I create my k8s cluster with 3 mini PCs for my study. This repositry is record for my k8s study.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5"
+  }
+}
